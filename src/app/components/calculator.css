@@ -1,0 +1,26 @@
+.equation-area{
+    margin-right: 0%;
+    padding-right: 1%;
+    padding-bottom: 5%;
+    background-color: darkgrey;
+    text-align: right;
+    display: block;
+    height: 15vh;
+    font-size: 6em;
+}
+
+.square {
+    background: #fff;
+    float: left;
+    text-align: center;
+    font-size: 4em;
+    font-weight: bold;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.kbd-navigation .square:focus {
+  background: #ddd;
+}
