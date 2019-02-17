@@ -64,7 +64,8 @@ export class Calculator extends React.Component<any, any>{
         this.state = {
             equationValue: props.equationValue,
             currentOperator: null,
-            prevNumber:null
+            prevNumber: null,
+            finalResult:null
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -75,6 +76,9 @@ export class Calculator extends React.Component<any, any>{
                     {this.state.equationValue}
                 </div>
                 <CalculatorBoard onClick={this.handleClick} />
+                <div className="answer-area row">
+                    {this.state.finalResult}
+                </div>
             </div>
 
 
@@ -84,31 +88,34 @@ export class Calculator extends React.Component<any, any>{
         let txt_numbers = Array.from({ length: 10 }, (x, i) => i).map(function (item) {
             return item.toString();
         });
-        let percent = "%";
-        let operators = ["÷", "X", "-", "+"]
+        let operators = ["÷", "X", "-", "+", "%"]
         if (txt === "AC") {
             const equationValue = "0";
             this.setState({ equationValue: equationValue });
 
         } else if (txt == "+/-") {
-            console.log("pm");
-        } else if (txt == "%") {
-            console.log("percent");
+            let sol = -Number.parseFloat(this.state.equationValue);
+            this.setState({ equationValue: sol.toString() })
         } else if (txt === "=") {
+            let sol;
             if (this.state.currentOperator === "+") {
-                let sol = Number.parseFloat(this.state.prevNumber)+ Number.parseFloat(this.state.equationValue);
-                this.setState({equationValue:sol})
+                sol = Number.parseFloat(this.state.prevNumber)+ Number.parseFloat(this.state.equationValue);
             } else if (this.state.currentOperator === "-") {
-                let sol = Number.parseFloat(this.state.prevNumber) - Number.parseFloat(this.state.equationValue);
-                this.setState({ equationValue: sol })
+                sol = Number.parseFloat(this.state.prevNumber) - Number.parseFloat(this.state.equationValue);
             }else if (this.state.currentOperator === "X") {
-                let sol = Number.parseFloat(this.state.prevNumber) * Number.parseFloat(this.state.equationValue);
-                this.setState({ equationValue: sol })
+                sol = Number.parseFloat(this.state.prevNumber) * Number.parseFloat(this.state.equationValue);
             
             } else if (this.state.currentOperator === "÷") {
-                let sol = Number.parseFloat(this.state.prevNumber) / Number.parseFloat(this.state.equationValue);
-                this.setState({ equationValue: sol })
+                sol = Number.parseFloat(this.state.prevNumber) / Number.parseFloat(this.state.equationValue);
+            
+            } else if (this.state.currentOperator === "%") {
+                sol = Number.parseFloat(this.state.prevNumber) % Number.parseFloat(this.state.equationValue);;
             }
+
+            this.setState({
+                equationValue: sol.toString(),
+                finalResult: this.state.prevNumber + " " + this.state.currentOperator + " " + this.state.equationValue + " = " + sol
+            });
         }
 
         else if (operators.indexOf(txt) > -1) {
@@ -135,16 +142,7 @@ export class Calculator extends React.Component<any, any>{
         }
     }
 }
-class EquationArea extends React.Component<any, any>{
 
-    render() {
-        return (
-            <div>
-
-            </div>
-        );
-    }
-}
 class Square extends React.Component<any, any>{
 
     render() {
