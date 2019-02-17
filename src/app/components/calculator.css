@@ -15,12 +15,19 @@
     text-align: center;
     font-size: 4em;
     font-weight: bold;
+
+}
+.square:hover{
+    background-color: rgb(171, 214, 219)
 }
 
-.square:focus {
-  outline: none;
-}
 
 .kbd-navigation .square:focus {
   background: #ddd;
+}
+.main{
+    height: 100%;
+}
+#root{
+    height: 100%;
 }
